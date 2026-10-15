@@ -28,6 +28,13 @@ SISTEMAS = [
         'url': 'https://registro-de-ponto-ddbl.onrender.com/ponto',
         'logo': '/static/ponto.png',
         'cor': '#b91c1c'
+    },
+    {
+        'nome': 'Gestão Orçamentária',
+        'descricao': 'Acompanhamento de fichas, dotações e saldo disponível.',
+        'url': 'https://orcamento-procuradoria.onrender.com',
+        'logo': '/static/orcamento.png',
+        'cor': '#0284c7'
     }
 ]
 
@@ -50,8 +57,8 @@ def main_page():
             ui.label('Sistema Procuradoria').classes('text-3xl font-extrabold text-gray-800 mb-2')
             ui.label('Selecione abaixo o sistema que deseja acessar:').classes('text-base text-gray-600')
 
-        # Grid de Sistemas/Módulos
-        with ui.grid(columns=3).classes('w-full gap-8 my-4 max-w-6xl'):
+        # Grid de Sistemas/Módulos (Ajustado para 4 colunas em telas maiores)
+        with ui.grid().classes('w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-4 max-w-7xl'):
             for sistema in SISTEMAS:
                 # ui.link envolve todo o card, garantindo a abertura do link em nova aba (target="_blank")
                 with ui.link(target=sistema['url'], new_tab=True).classes('no-underline w-full'):
@@ -60,7 +67,7 @@ def main_page():
                         'transition-all duration-300 transform hover:-translate-y-2 rounded-xl border border-gray-100 h-full w-full'
                     ):
                         # ÁREA DO LOGO: Usa fit=contain para preencher todo o espaço sem cortar nada
-                        with ui.column().classes('w-full h-48 items-center justify-center mb-2 overflow-hidden'):
+                        with ui.column().classes('w-full h-44 items-center justify-center mb-2 overflow-hidden'):
                             try:
                                 ui.image(sistema['logo']).props('fit=contain').classes('w-full h-full')
                             except Exception:
