@@ -56,15 +56,15 @@ def main_page():
                         'p-6 flex flex-col items-center justify-between shadow-md hover:shadow-2xl '
                         'transition-all duration-300 transform hover:-translate-y-2 rounded-xl border border-gray-100 h-full w-full'
                     ):
-                        # Imagem do Logo com limitação de altura e enquadramento suave (contain)
-                        with ui.column().classes('h-24 flex items-center justify-center w-full mb-4 overflow-hidden'):
+                        # Imagem do Logo expandida para ocupar maior espaço
+                        with ui.column().classes('h-36 flex items-center justify-center w-full mb-3 overflow-hidden'):
                             try:
-                                ui.image(sistema['logo']).classes('max-h-20 max-w-full object-contain')
+                                ui.image(sistema['logo']).classes('max-h-32 max-w-full object-contain')
                             except Exception:
-                                ui.icon('apps', size='25px').classes('text-gray-400')
+                                ui.icon('apps', size='48px').classes('text-gray-400')
 
-                        # Nome do Sistema
-                        ui.label(sistema['nome']).classes('text-xl font-bold text-gray-800 text-center mb-2')
+                        # Nome do Sistema em tamanho menor para dar destaque ao logo
+                        ui.label(sistema['nome']).classes('text-base font-semibold text-gray-800 text-center mb-1')
                         
                         # Descrição Curta
                         ui.label(sistema['descricao']).classes('text-sm text-gray-500 text-center mb-6 flex-grow')
