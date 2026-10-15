@@ -4,26 +4,27 @@ from nicegui import ui
 PORT = int(os.environ.get('PORT', 8080))
 
 # Definição dos Sistemas / Módulos do Container
+# Logos com espaços ao redor para evitar cortes
 SISTEMAS = [
     {
         'nome': 'Decretos Municipais',
         'descricao': 'Consulta de decretos municipais de Francisco Morato.',
         'url': 'https://decretos-francisco-morato.onrender.com/',
-        'logo': 'decretos.png',
+        'logo': 'decretos_full.png', # Logo em contêiner maior
         'cor': '#1e3a8a'
     },
     {
         'nome': 'IEG-M — Índice de Efetividade',
         'descricao': 'Acompanhamento do Índice de Efetividade da Gestão Municipal.',
         'url': 'https://www.iegm.app.br/',
-        'logo': 'iegm.png',
+        'logo': 'iegm_full.png', # Logo em contêiner maior
         'cor': '#047857'
     },
     {
         'nome': 'Controle de Ponto',
         'descricao': 'Registro e controle eletrônico de ponto',
         'url': 'https://registro-de-ponto-ddbl.onrender.com/ponto',
-        'logo': 'ponto.png',
+        'logo': 'ponto_full.png', # Logo em contêiner maior
         'cor': '#b91c1c'
     }
 ]
@@ -56,10 +57,10 @@ def main_page():
                         'p-6 flex flex-col items-center justify-between shadow-md hover:shadow-2xl '
                         'transition-all duration-300 transform hover:-translate-y-2 rounded-xl border border-gray-100 h-full w-full'
                     ):
-                        # Imagem do Logo expandida para ocupar maior espaço
-                        with ui.column().classes('h-36 flex items-center justify-center w-full mb-3 overflow-hidden'):
+                        # Imagem do Logo com contêiner maior e padding para garantir visibilidade total
+                        with ui.column().classes('h-40 flex items-center justify-center w-full mb-3 overflow-hidden p-2'):
                             try:
-                                ui.image(sistema['logo']).classes('max-h-32 max-w-full object-contain')
+                                ui.image(sistema['logo']).classes('max-h-36 max-w-full object-contain')
                             except Exception:
                                 ui.icon('apps', size='48px').classes('text-gray-400')
 
