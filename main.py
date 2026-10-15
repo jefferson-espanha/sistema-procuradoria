@@ -1,7 +1,10 @@
 import os
-from nicegui import ui
+from nicegui import app, ui
 
 PORT = int(os.environ.get('PORT', 8080))
+
+# Se os arquivos .png estão na mesma pasta do script main.py, liberamos a pasta atual como estática
+app.add_static_files('/static', '.')
 
 # Definição dos Sistemas / Módulos do Container
 SISTEMAS = [
@@ -9,21 +12,21 @@ SISTEMAS = [
         'nome': 'Decretos Municipais',
         'descricao': 'Consulta de decretos municipais de Francisco Morato.',
         'url': 'https://decretos-francisco-morato.onrender.com/',
-        'logo': 'decretos.png',
+        'logo': '/static/decretos.png',
         'cor': '#1e3a8a'
     },
     {
         'nome': 'IEG-M — Índice de Efetividade',
         'descricao': 'Acompanhamento do Índice de Efetividade da Gestão Municipal.',
         'url': 'https://www.iegm.app.br/',
-        'logo': 'iegm.png',
+        'logo': '/static/iegm.png',
         'cor': '#047857'
     },
     {
         'nome': 'Controle de Ponto',
         'descricao': 'Registro e controle eletrônico de ponto',
         'url': 'https://registro-de-ponto-ddbl.onrender.com/ponto',
-        'logo': 'ponto.png',
+        'logo': '/static/ponto.png',
         'cor': '#b91c1c'
     }
 ]
@@ -56,14 +59,14 @@ def main_page():
                         'p-6 flex flex-col items-center justify-between shadow-md hover:shadow-2xl '
                         'transition-all duration-300 transform hover:-translate-y-2 rounded-xl border border-gray-100 h-full w-full'
                     ):
-                        # Área reservada para o Logo (sem cortar e ocupando o maior espaço possível)
-                        with ui.element('div').classes('w-full h-44 flex items-center justify-center p-2 mb-2'):
+                        # ÁREA DO LOGO: Usa fit=contain para preencher todo o espaço sem cortar nada
+                        with ui.column().classes('w-full h-48 items-center justify-center mb-2 overflow-hidden'):
                             try:
-                                ui.html(f'<img src="{sistema["logo"]}" style="max-height: 100%; max-width: 100%; object-fit: contain; display: block; margin: auto;" />')
+                                ui.image(sistema['logo']).props('fit=contain').classes('w-full h-full')
                             except Exception:
                                 ui.icon('apps', size='48px').classes('text-gray-400')
 
-                        # Nome do Sistema menor
+                        # Nome do Sistema (Título menor para dar destaque à logo)
                         ui.label(sistema['nome']).classes('text-base font-semibold text-gray-800 text-center mb-1')
                         
                         # Descrição Curta
