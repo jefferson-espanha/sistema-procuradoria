@@ -10,21 +10,21 @@ SISTEMAS = [
         'nome': 'Decretos Municipais',
         'descricao': 'Consulta de decretos municipais de Francisco Morato.',
         'url': 'https://decretos-francisco-morato.onrender.com/',
-        'logo': 'decretos_full.png', # Logo em contêiner maior
+        'logo': 'decretos.png', # Logo em contêiner maior
         'cor': '#1e3a8a'
     },
     {
         'nome': 'IEG-M — Índice de Efetividade',
         'descricao': 'Acompanhamento do Índice de Efetividade da Gestão Municipal.',
         'url': 'https://www.iegm.app.br/',
-        'logo': 'iegm_full.png', # Logo em contêiner maior
+        'logo': 'iegm.png', # Logo em contêiner maior
         'cor': '#047857'
     },
     {
         'nome': 'Controle de Ponto',
         'descricao': 'Registro e controle eletrônico de ponto',
         'url': 'https://registro-de-ponto-ddbl.onrender.com/ponto',
-        'logo': 'ponto_full.png', # Logo em contêiner maior
+        'logo': 'ponto.png', # Logo em contêiner maior
         'cor': '#b91c1c'
     }
 ]
