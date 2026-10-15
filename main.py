@@ -35,6 +35,13 @@ SISTEMAS = [
         'url': 'https://orcamento-procuradoria.onrender.com',
         'logo': '/static/orcamento.png',
         'cor': '#0284c7'
+    },
+    {
+        'nome': 'Contratos e Aditivos',
+        'descricao': 'Gestão de contratos, aditivos, vigências e fiscais.',
+        'url': 'https://contratos-ifo5.onrender.com',
+        'logo': '/static/contratos.png',
+        'cor': '#0f766e'
     }
 ]
 
