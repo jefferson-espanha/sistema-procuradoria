@@ -7,7 +7,7 @@ PORT = int(os.environ.get('PORT', 8080))
 SISTEMAS = [
     {
         'nome': 'Decretos Municipais',
-        'descricao': 'Consulta pública e gestão de decretos municipais de Francisco Morato.',
+        'descricao': 'Consulta de decretos municipais de Francisco Morato.',
         'url': 'https://decretos-francisco-morato.onrender.com/',
         'logo': 'decretos.png',
         'cor': '#1e3a8a'
@@ -21,7 +21,7 @@ SISTEMAS = [
     },
     {
         'nome': 'Controle de Ponto',
-        'descricao': 'Registro e controle eletrônico de ponto da equipe.',
+        'descricao': 'Registro e controle eletrônico de ponto',
         'url': 'https://registro-de-ponto-ddbl.onrender.com/ponto',
         'logo': 'ponto.png',
         'cor': '#b91c1c'
@@ -61,7 +61,7 @@ def main_page():
                             try:
                                 ui.image(sistema['logo']).classes('max-h-20 max-w-full object-contain')
                             except Exception:
-                                ui.icon('apps', size='48px').classes('text-gray-400')
+                                ui.icon('apps', size='25px').classes('text-gray-400')
 
                         # Nome do Sistema
                         ui.label(sistema['nome']).classes('text-xl font-bold text-gray-800 text-center mb-2')
