@@ -50,6 +50,13 @@ SISTEMAS = [
         'logo': '/static/contencioso.png',
         'cor': '#7c3aed'
     },
+    {
+        'nome': 'Ministério Público',
+        'descricao': 'Consulta e gerenciamento dos procedimentos do Ministério Público.',
+        'url': 'https://ministerio-publico.onrender.com',
+        'logo': '/static/ministerio.png',
+        'cor': '#4338ca'
+    },
 ]
 
 
