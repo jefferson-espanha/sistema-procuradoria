@@ -57,6 +57,13 @@ SISTEMAS = [
         'logo': '/static/ministerio.png',
         'cor': '#4338ca'
     },
+    {
+        'nome': 'Arquivos em Geral',
+        'descricao': 'Controle de caixas, pastas, envelopes e arquivos digitalizados.',
+        'url': 'https://arquivos-geral.onrender.com/',
+        'logo': '/static/arquivos_geral.png',
+        'cor': '#0369a1'
+    },
 ]
 
 
