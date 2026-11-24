@@ -46,7 +46,7 @@ SISTEMAS = [
     {
         'nome': 'Contencioso',
         'descricao': 'Consulta e gerenciamento dos processos do contencioso.',
-        'url': 'https://arquivo-contensioso.onrender.com/',
+        'url': 'https://arquivo-contensioso-9l7e.onrender.com',
         'logo': '/static/contencioso.png',
         'cor': '#7c3aed'
     },
