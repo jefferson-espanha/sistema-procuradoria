@@ -53,7 +53,7 @@ SISTEMAS = [
     {
         'nome': 'Ministério Público',
         'descricao': 'Consulta e gerenciamento dos procedimentos do Ministério Público.',
-        'url': 'https://ministerio-publico.onrender.com',
+        'url': 'https://ministerio-publico-cejq.onrender.com',
         'logo': '/static/ministerio.png',
         'cor': '#4338ca'
     },
