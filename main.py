@@ -11,7 +11,7 @@ SISTEMAS = [
     {
         'nome': 'Decretos Municipais',
         'descricao': 'Consulta de decretos municipais de Francisco Morato.',
-        'url': 'https://decretos-francisco-morato.onrender.com/',
+        'url': 'https://decretos-francisco-morato-qrbu.onrender.com',
         'logo': '/static/decretos.png',
         'cor': '#1e3a8a'
     },
