@@ -60,7 +60,7 @@ SISTEMAS = [
     {
         'nome': 'Arquivos em Geral',
         'descricao': 'Controle de caixas, pastas, envelopes e arquivos digitalizados.',
-        'url': 'https://arquivos-geral.onrender.com/',
+        'url': 'https://arquivos-geral-1.onrender.com',
         'logo': '/static/arquivos_geral.png',
         'cor': '#0369a1'
     },
