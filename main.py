@@ -66,7 +66,6 @@ SISTEMAS = [
     },
 ]
 
-
 @ui.page('/')
 def main_page():
     ui.colors(primary='#1e3a8a')
