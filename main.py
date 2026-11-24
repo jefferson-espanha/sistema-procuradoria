@@ -32,7 +32,7 @@ SISTEMAS = [
     {
         'nome': 'Gestão Orçamentária',
         'descricao': 'Acompanhamento de fichas, dotações e saldo disponível.',
-        'url': 'https://orcamento-procuradoria.onrender.com',
+        'url': 'https://orcamento-procuradoria-g8us.onrender.com',
         'logo': '/static/orcamento.png',
         'cor': '#0284c7'
     },
