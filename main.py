@@ -109,6 +109,5 @@ def main_page():
     with ui.footer().classes('bg-gray-100 text-gray-600 p-4 text-center text-sm border-t mt-12'):
         ui.label('Prefeitura Municipal de Francisco Morato — Procuradoria do Município © 2026')
 
-
 if __name__ in {'__main__', '__mp_main__'}:
     ui.run(host='0.0.0.0', port=PORT, reload=False)
