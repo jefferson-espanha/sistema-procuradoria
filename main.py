@@ -18,7 +18,7 @@ SISTEMAS = [
     {
         'nome': 'IEG-M — Índice de Efetividade',
         'descricao': 'Acompanhamento do Índice de Efetividade da Gestão Municipal.',
-        'url': 'https://www.iegm.app.br/',
+        'url': 'https://iegm-morato-oosc.onrender.com',
         'logo': '/static/iegm.png',
         'cor': '#047857'
     },
