@@ -71,6 +71,13 @@ SISTEMAS = [
         'logo': '/static/convenios.png',
         'cor': '#1d4ed8'
     },
+    {
+        'nome': 'Notas Fiscais',
+        'descricao': 'Controle de notas fiscais por contrato, empenho, SEI e certidões.',
+        'url': 'https://notas-fiscais-25bl.onrender.com/',
+        'logo': '/static/fiscais.png',
+        'cor': '#0f766e'
+    },
 ]
 
 @ui.page('/')
