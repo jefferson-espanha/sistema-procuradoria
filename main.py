@@ -64,6 +64,13 @@ SISTEMAS = [
         'logo': '/static/arquivos_geral.png',
         'cor': '#0369a1'
     },
+    {
+        'nome': 'Convênios',
+        'descricao': 'Consulta e gerenciamento de convênios, termos e processos.',
+        'url': 'https://convenios-6vnh.onrender.com/',
+        'logo': '/static/convenios.png',
+        'cor': '#1d4ed8'
+    },
 ]
 
 @ui.page('/')
