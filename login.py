@@ -43,25 +43,25 @@ def inicializar_usuarios():
         conn = get_db_connection()
         cur = conn.cursor()
 
-        cur.ecute("""
-            CREATE TABLE IF NOT ISTS usuarios_procuradoria (
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS usuarios_procuradoria (
                 id SERIAL PRIMARY KEY,
                 usuario VARCHAR(100) UNIQUE NOT NULL,
                 nome_completo VARCHAR(180) DEFAULT '',
-                senha_hash TT NOT NULL,
+                senha_hash TEXT NOT NULL,
                 is_admin BOOLEAN DEFAULT FALSE,
                 ativo BOOLEAN DEFAULT TRUE,
                 criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         """)
 
-        cur.ecute(
+        cur.execute(
             'SELECT id, senha_hash FROM usuarios_procuradoria WHERE usuario = %s;',
             (ADMIN_USER,)
         )
         admin_row = cur.fetchone()
         if not admin_row:
-            cur.ecute("""
+            cur.execute("""
                 INSERT INTO usuarios_procuradoria (usuario, nome_completo, senha_hash, is_admin, ativo)
                 VALUES (%s, %s, %s, TRUE, TRUE);
             """, (ADMIN_USER, 'Administrador do Sistema', hash_senha(ADMIN_PASS)))
@@ -69,7 +69,7 @@ def inicializar_usuarios():
         conn.commit()
         cur.close()
         conn.close()
-    cept ception as e:
+    except Exception as e:
         print(f'Erro ao inicializar tabela de usuários: {e}')
 
 
