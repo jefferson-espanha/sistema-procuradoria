@@ -84,7 +84,7 @@ def autenticar_usuario(usuario: str, senha: str) -> dict | None:
     try:
         conn = get_db_connection()
         cur = conn.cursor()
-        cur.ecute("""
+        cur.execute("""
             SELECT id, usuario, nome_completo, senha_hash, is_admin, ativo
             FROM usuarios_procuradoria
             WHERE LOWER(usuario) = %s;
@@ -96,7 +96,7 @@ def autenticar_usuario(usuario: str, senha: str) -> dict | None:
         if row and row.get('ativo') and verificar_senha(s, row['senha_hash']):
             return dict(row)
         return None
-    cept Exception as e:
+    except Exception as e:
         print(f'Erro ao autenticar usuário: {e}')
         return None
 
@@ -149,7 +149,7 @@ def cadastrar_usuario_via_admin(
     tornar_admin: bool = False,
 ) -> tuple[bool, str]:
     if (admin_user or '').strip().lower() != ADMIN_USER or (admin_pass or '') != ADMIN_PASS:
-        return False, 'Acesso negado: apenas o administrador jefferson.espanha pode cadastrar usuários.'
+        return False, 'Apenas "EU" posso cadastrar usuários.'
 
     u_novo = (novo_usuario or '').strip().lower()
     nome_novo = (novo_nome or '').strip()
@@ -197,7 +197,6 @@ def login_page():
 
     with ui.column().classes('w-full min-h-[82vh] items-center justify-center p-4 bg-gray-50'):
         with ui.card().classes('w-full max-w-md p-7 rounded-2xl shadow-xl border border-gray-100 bg-white'):
-            # Logo centralizado
             with ui.column().classes('w-full items-center justify-center mb-4'):
                 ui.image('/static/procuradoria.png').props('fit=contain').classes('w-36 h-28 object-contain')
                 ui.label('Portal da Procuradoria').classes('text-xl font-extrabold text-blue-950 mt-2')
@@ -209,12 +208,11 @@ def login_page():
                 tab_admin = ui.tab('Cadastrar Usuário', icon='admin_panel_settings')
 
             with ui.tab_panels(tabs, value=tab_entrar).classes('w-full p-0'):
-                # Aba Entrar
                 with ui.tab_panel(tab_entrar).classes('p-0 flex flex-col gap-3'):
                     inp_user = ui.input(
                         label='Usuário',
                         value=usuario_logado,
-                        placeholder='Ex: chuck norris'
+                        placeholder='Ex: chuck.norris'
                     ).classes('w-full').props('outlined dense')
                     inp_pass = ui.input(
                         label='Senha',
@@ -230,7 +228,7 @@ def login_page():
                         app.storage.user['usuario'] = user_ok['usuario']
                         app.storage.user['nome'] = user_ok.get('nome_completo') or user_ok['usuario']
                         app.storage.user['is_admin'] = bool(user_ok.get('is_admin'))
-                        ui.notify(f"potência, {app.storage.user['usuario']}!", type='positive')
+                        ui.notify(f"Fera, {app.storage.user['usuario']}!", type='positive')
                         ui.navigate.to('/')
 
                     inp_pass.on('keydown.enter', lambda _: fazer_login())
@@ -239,10 +237,9 @@ def login_page():
                         'w-full bg-blue-900 text-white font-bold py-2.5 rounded-lg mt-2 shadow-md'
                     )
 
-                # Aba Alterar Senha (livre para qualquer usuário com sua senha atual)
                 with ui.tab_panel(tab_senha).classes('p-0 flex flex-col gap-3'):
                     ui.label(
-                        'Confirme sua senha atual e altere.'
+                        'Disponível para qualquer usuário mediante confirmação da senha atual.'
                     ).classes('text-xs text-blue-900 bg-blue-50 p-2.5 rounded-lg border border-blue-200')
 
                     alt_user = ui.input(
@@ -291,7 +288,6 @@ def login_page():
                         on_click=salvar_nova_senha
                     ).classes('w-full bg-blue-900 text-white font-bold py-2.5 rounded-lg mt-1 shadow-md')
 
-                # Aba Cadastrar Usuário (restrita ao admin jefferson.espanha)
                 with ui.tab_panel(tab_admin).classes('p-0 flex flex-col gap-3'):
                     ui.label(
                         'Restrito ao administrador "jefferson.espanha".'
