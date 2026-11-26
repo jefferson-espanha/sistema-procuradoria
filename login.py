@@ -27,10 +27,10 @@ def hash_senha(senha: str, salt: str | None = None) -> str:
 
 def verificar_senha(senha: str, armazenado: str) -> bool:
     try:
-        salt, dk_h = armazenado.split('$', 1)
+        salt, dk_hex = armazenado.split('$', 1)
         dk = hashlib.pbkdf2_hmac('sha256', senha.encode('utf-8'), salt.encode('utf-8'), 100_000)
-        return secrets.compare_digest(dk.h(), dk_h)
-    cept ception:
+        return secrets.compare_digest(dk.hex(), dk_hex)
+    except Exception:
         return False
 
 
