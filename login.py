@@ -308,12 +308,12 @@ def login_page():
 
                     novo_u = ui.input(
                         label='Novo Usuário',
-                        placeholder='Ex: maria.silva'
+                        placeholder='Ex: alexandre.nardoni'
                     ).classes('w-full').props('outlined dense')
 
                     novo_n = ui.input(
                         label='Cargo',
-                        placeholder='Ex: Maria Silva'
+                        placeholder='Ex: Pedreiro'
                     ).classes('w-full').props('outlined dense')
 
                     novo_s = ui.input(
