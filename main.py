@@ -4,12 +4,12 @@ from login import inicializar_usuarios, login_page  # noqa: F401
 
 PORT = int(os.environ.get('PORT', 8080))
 
-# Os arquivos PNG devem ficar na mesma pasta deste main.py.
+
 app.add_static_files('/static', '.')
 
 inicializar_usuarios()
 
-# Sistemas e módulos disponíveis no portal.
+
 SISTEMAS = [
     {
         'nome': 'Decretos Municipais',
@@ -112,7 +112,7 @@ def main_page():
         app.storage.user.clear()
         ui.navigate.to('/login')
 
-    # Cabeçalho do portal.
+    
     with ui.header().classes('bg-blue-950 text-white p-4 flex justify-between items-center shadow-lg'):
         with ui.row().classes('items-center gap-3'):
             ui.icon('balance', size='32px').classes('text-blue-300')
@@ -121,13 +121,13 @@ def main_page():
             ui.label(f'Usuário: {usuario_atual}').classes('text-sm text-blue-200 hidden sm:block')
             ui.button('Sair', icon='logout', on_click=sair).classes('bg-blue-800 text-white text-xs').props('dense')
 
-    # Container principal.
+    
     with ui.column().classes('w-full p-6 max-w-7xl mx-auto items-center'):
         with ui.column().classes('text-center my-6'):
             ui.label('Sistema Procuradoria').classes('text-3xl font-extrabold text-gray-800 mb-2')
             ui.label('Selecione abaixo o sistema que deseja acessar:').classes('text-base text-gray-600')
 
-        # Grid responsivo dos sistemas.
+       
         with ui.grid().classes('w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-4 max-w-7xl'):
             for sistema in SISTEMAS:
                 with ui.link(target=sistema['url'], new_tab=True).classes('no-underline w-full'):
@@ -149,7 +149,7 @@ def main_page():
                             'w-full text-white font-bold py-2 rounded-lg shadow-sm pointer-events-none'
                         ).style(f'background-color: {sistema["cor"]}')
 
-    # Rodapé.
+   
     with ui.footer().classes('bg-gray-100 text-gray-600 p-4 text-center text-sm border-t mt-12'):
         ui.label('Prefeitura Municipal de Francisco Morato — Procuradoria do Município © 2026')
 
