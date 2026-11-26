@@ -1,10 +1,13 @@
 import os
 from nicegui import app, ui
+from login import inicializar_usuarios, login_page  # noqa: F401
 
 PORT = int(os.environ.get('PORT', 8080))
 
 # Os arquivos PNG devem ficar na mesma pasta deste main.py.
 app.add_static_files('/static', '.')
+
+inicializar_usuarios()
 
 # Sistemas e módulos disponíveis no portal.
 SISTEMAS = [
@@ -94,16 +97,29 @@ SISTEMAS = [
     },
 ]
 
+
 @ui.page('/')
 def main_page():
+    if not app.storage.user.get('usuario'):
+        ui.navigate.to('/login')
+        return
+
     ui.colors(primary='#1e3a8a')
+
+    usuario_atual = app.storage.user.get('usuario', '')
+
+    def sair():
+        app.storage.user.clear()
+        ui.navigate.to('/login')
 
     # Cabeçalho do portal.
     with ui.header().classes('bg-blue-950 text-white p-4 flex justify-between items-center shadow-lg'):
         with ui.row().classes('items-center gap-3'):
             ui.icon('balance', size='32px').classes('text-blue-300')
             ui.label('Procuradoria do Município').classes('text-2xl font-bold tracking-wide')
-        ui.label('Portal de Sistemas Integrados').classes('text-sm text-blue-200 hidden sm:block')
+        with ui.row().classes('items-center gap-4'):
+            ui.label(f'Usuário: {usuario_atual}').classes('text-sm text-blue-200 hidden sm:block')
+            ui.button('Sair', icon='logout', on_click=sair).classes('bg-blue-800 text-white text-xs').props('dense')
 
     # Container principal.
     with ui.column().classes('w-full p-6 max-w-7xl mx-auto items-center'):
@@ -137,5 +153,11 @@ def main_page():
     with ui.footer().classes('bg-gray-100 text-gray-600 p-4 text-center text-sm border-t mt-12'):
         ui.label('Prefeitura Municipal de Francisco Morato — Procuradoria do Município © 2026')
 
+
 if __name__ in {'__main__', '__mp_main__'}:
-    ui.run(host='0.0.0.0', port=PORT, reload=False)
+    ui.run(
+        host='0.0.0.0',
+        port=PORT,
+        reload=False,
+        storage_secret=os.getenv('STORAGE_SECRET', 'procuradoria-francisco-morato-secret-2026')
+    )
