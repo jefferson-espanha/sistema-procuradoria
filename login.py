@@ -239,7 +239,7 @@ def login_page():
 
                 with ui.tab_panel(tab_senha).classes('p-0 flex flex-col gap-3'):
                     ui.label(
-                        'Disponível para qualquer usuário mediante confirmação da senha atual.'
+                        'Confirme sua senha atual e altere logo em seguida'
                     ).classes('text-xs text-blue-900 bg-blue-50 p-2.5 rounded-lg border border-blue-200')
 
                     alt_user = ui.input(
