@@ -101,6 +101,45 @@ def autenticar_usuario(usuario: str, senha: str) -> dict | None:
         return None
 
 
+def alterar_senha_usuario(
+    usuario: str,
+    senha_atual: str,
+    nova_senha: str,
+    confirmar_senha: str,
+) -> tuple[bool, str]:
+    u = (usuario or '').strip().lower()
+    atual = senha_atual or ''
+    nova = nova_senha or ''
+    conf = confirmar_senha or ''
+
+    if not u or not atual:
+        return False, 'Informe seu usuário e a senha atual.'
+    if len(nova) < 4:
+        return False, 'A nova senha deve ter pelo menos 4 caracteres.'
+    if nova != conf:
+        return False, 'A nova senha e a confirmação não coincidem.'
+    if nova == atual:
+        return False, 'A nova senha deve ser diferente da senha atual.'
+
+    user_ok = autenticar_usuario(u, atual)
+    if not user_ok:
+        return False, 'Usuário ou senha atual inválidos.'
+
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute(
+            'UPDATE usuarios_procuradoria SET senha_hash = %s WHERE id = %s;',
+            (hash_senha(nova), user_ok['id'])
+        )
+        conn.commit()
+        cur.close()
+        conn.close()
+        return True, 'Senha alterada com sucesso!'
+    except Exception as e:
+        return False, f'Erro ao alterar senha: {e}'
+
+
 def cadastrar_usuario_via_admin(
     admin_user: str,
     admin_pass: str,
@@ -148,6 +187,8 @@ def cadastrar_usuario_via_admin(
 def login_page():
     ui.colors(primary='#1e3a8a')
 
+    usuario_logado = app.storage.user.get('usuario') or ''
+
     with ui.header().classes('bg-blue-950 text-white p-4 flex justify-between items-center shadow-lg'):
         with ui.row().classes('items-center gap-3'):
             ui.icon('balance', size='30px').classes('text-blue-300')
@@ -164,14 +205,17 @@ def login_page():
 
             with ui.tabs().classes('w-full mb-4') as tabs:
                 tab_entrar = ui.tab('Entrar', icon='login')
-                tab_admin = ui.tab('Cadastrar Usuário (Admin)', icon='admin_panel_settings')
+                tab_senha = ui.tab('Alterar Senha', icon='lock_reset')
+                tab_admin = ui.tab('Cadastrar Usuário', icon='admin_panel_settings')
 
             with ui.tab_panels(tabs, value=tab_entrar).classes('w-full p-0'):
                 # Aba Entrar
                 with ui.tab_panel(tab_entrar).classes('p-0 flex flex-col gap-3'):
-                    inp_user = ui.input(label='Usuário', placeholder='Ex: jefferson.espanha').classes('w-full').props(
-                        'outlined dense'
-                    )
+                    inp_user = ui.input(
+                        label='Usuário',
+                        value=usuario_logado,
+                        placeholder='Ex: jefferson.espanha'
+                    ).classes('w-full').props('outlined dense')
                     inp_pass = ui.input(
                         label='Senha',
                         password=True,
@@ -194,6 +238,58 @@ def login_page():
                     ui.button('Entrar', icon='login', on_click=fazer_login).classes(
                         'w-full bg-blue-900 text-white font-bold py-2.5 rounded-lg mt-2 shadow-md'
                     )
+
+                # Aba Alterar Senha (livre para qualquer usuário com sua senha atual)
+                with ui.tab_panel(tab_senha).classes('p-0 flex flex-col gap-3'):
+                    ui.label(
+                        'Disponível para qualquer usuário mediante confirmação da senha atual.'
+                    ).classes('text-xs text-blue-900 bg-blue-50 p-2.5 rounded-lg border border-blue-200')
+
+                    alt_user = ui.input(
+                        label='Usuário',
+                        value=usuario_logado,
+                        placeholder='Seu usuário'
+                    ).classes('w-full').props('outlined dense')
+
+                    alt_atual = ui.input(
+                        label='Senha Atual',
+                        password=True,
+                        password_toggle_button=True
+                    ).classes('w-full').props('outlined dense')
+
+                    alt_nova = ui.input(
+                        label='Nova Senha',
+                        password=True,
+                        password_toggle_button=True
+                    ).classes('w-full').props('outlined dense')
+
+                    alt_conf = ui.input(
+                        label='Confirmar Nova Senha',
+                        password=True,
+                        password_toggle_button=True
+                    ).classes('w-full').props('outlined dense')
+
+                    def salvar_nova_senha():
+                        ok, msg = alterar_senha_usuario(
+                            alt_user.value,
+                            alt_atual.value,
+                            alt_nova.value,
+                            alt_conf.value,
+                        )
+                        if ok:
+                            ui.notify(msg, type='positive')
+                            alt_atual.value = ''
+                            alt_nova.value = ''
+                            alt_conf.value = ''
+                            tabs.set_value(tab_entrar)
+                        else:
+                            ui.notify(msg, type='negative')
+
+                    ui.button(
+                        'Alterar Senha',
+                        icon='check_circle',
+                        on_click=salvar_nova_senha
+                    ).classes('w-full bg-blue-900 text-white font-bold py-2.5 rounded-lg mt-1 shadow-md')
 
                 # Aba Cadastrar Usuário (restrita ao admin jefferson.espanha)
                 with ui.tab_panel(tab_admin).classes('p-0 flex flex-col gap-3'):
