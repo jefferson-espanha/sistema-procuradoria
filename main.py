@@ -85,6 +85,13 @@ SISTEMAS = [
         'logo': '/static/materiais.png',
         'cor': '#b45309'
     },
+    {
+        'nome': 'Plano de Contratações Anual',
+        'descricao': 'Resumo do PCA e desdobramentos de materiais e serviços de TIC.',
+        'url': 'https://pca-n2aq.onrender.com/',
+        'logo': '/static/pca.png',
+        'cor': '#1e40af'
+    },
 ]
 
 @ui.page('/')
