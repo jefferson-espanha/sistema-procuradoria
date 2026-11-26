@@ -290,7 +290,7 @@ def login_page():
 
                 with ui.tab_panel(tab_admin).classes('p-0 flex flex-col gap-3'):
                     ui.label(
-                        'Restrito ao administrador "jefferson.espanha".'
+                        'Restrito ao administrador".'
                     ).classes('text-xs font-semibold text-amber-800 bg-amber-50 p-2.5 rounded-lg border border-amber-200')
 
                     adm_user = ui.input(
