@@ -78,6 +78,13 @@ SISTEMAS = [
         'logo': '/static/fiscais.png',
         'cor': '#0f766e'
     },
+    {
+        'nome': 'Material de Consumo',
+        'descricao': 'Histórico de gastos por exercício, variação percentual e dashboard.',
+        'url': 'https://materiais.onrender.com/',
+        'logo': '/static/materiais.png',
+        'cor': '#b45309'
+    },
 ]
 
 @ui.page('/')
