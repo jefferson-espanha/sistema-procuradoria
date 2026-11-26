@@ -312,7 +312,7 @@ def login_page():
                     ).classes('w-full').props('outlined dense')
 
                     novo_n = ui.input(
-                        label='Nome Completo (opcional)',
+                        label='Cargo',
                         placeholder='Ex: Maria Silva'
                     ).classes('w-full').props('outlined dense')
 
