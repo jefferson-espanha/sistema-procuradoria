@@ -27,10 +27,10 @@ def hash_senha(senha: str, salt: str | None = None) -> str:
 
 def verificar_senha(senha: str, armazenado: str) -> bool:
     try:
-        salt, dk_hex = armazenado.split('$', 1)
+        salt, dk_h = armazenado.split('$', 1)
         dk = hashlib.pbkdf2_hmac('sha256', senha.encode('utf-8'), salt.encode('utf-8'), 100_000)
-        return secrets.compare_digest(dk.hex(), dk_hex)
-    except Exception:
+        return secrets.compare_digest(dk.h(), dk_h)
+    cept ception:
         return False
 
 
@@ -43,25 +43,25 @@ def inicializar_usuarios():
         conn = get_db_connection()
         cur = conn.cursor()
 
-        cur.execute("""
-            CREATE TABLE IF NOT EXISTS usuarios_procuradoria (
+        cur.ecute("""
+            CREATE TABLE IF NOT ISTS usuarios_procuradoria (
                 id SERIAL PRIMARY KEY,
                 usuario VARCHAR(100) UNIQUE NOT NULL,
                 nome_completo VARCHAR(180) DEFAULT '',
-                senha_hash TEXT NOT NULL,
+                senha_hash TT NOT NULL,
                 is_admin BOOLEAN DEFAULT FALSE,
                 ativo BOOLEAN DEFAULT TRUE,
                 criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         """)
 
-        cur.execute(
+        cur.ecute(
             'SELECT id, senha_hash FROM usuarios_procuradoria WHERE usuario = %s;',
             (ADMIN_USER,)
         )
         admin_row = cur.fetchone()
         if not admin_row:
-            cur.execute("""
+            cur.ecute("""
                 INSERT INTO usuarios_procuradoria (usuario, nome_completo, senha_hash, is_admin, ativo)
                 VALUES (%s, %s, %s, TRUE, TRUE);
             """, (ADMIN_USER, 'Administrador do Sistema', hash_senha(ADMIN_PASS)))
@@ -69,7 +69,7 @@ def inicializar_usuarios():
         conn.commit()
         cur.close()
         conn.close()
-    except Exception as e:
+    cept ception as e:
         print(f'Erro ao inicializar tabela de usuários: {e}')
 
 
@@ -84,7 +84,7 @@ def autenticar_usuario(usuario: str, senha: str) -> dict | None:
     try:
         conn = get_db_connection()
         cur = conn.cursor()
-        cur.execute("""
+        cur.ecute("""
             SELECT id, usuario, nome_completo, senha_hash, is_admin, ativo
             FROM usuarios_procuradoria
             WHERE LOWER(usuario) = %s;
@@ -96,7 +96,7 @@ def autenticar_usuario(usuario: str, senha: str) -> dict | None:
         if row and row.get('ativo') and verificar_senha(s, row['senha_hash']):
             return dict(row)
         return None
-    except Exception as e:
+    cept Exception as e:
         print(f'Erro ao autenticar usuário: {e}')
         return None
 
@@ -214,7 +214,7 @@ def login_page():
                     inp_user = ui.input(
                         label='Usuário',
                         value=usuario_logado,
-                        placeholder='Ex: jefferson.espanha'
+                        placeholder='Ex: chuck norris'
                     ).classes('w-full').props('outlined dense')
                     inp_pass = ui.input(
                         label='Senha',
@@ -230,7 +230,7 @@ def login_page():
                         app.storage.user['usuario'] = user_ok['usuario']
                         app.storage.user['nome'] = user_ok.get('nome_completo') or user_ok['usuario']
                         app.storage.user['is_admin'] = bool(user_ok.get('is_admin'))
-                        ui.notify(f"Bem-vindo, {app.storage.user['usuario']}!", type='positive')
+                        ui.notify(f"potência, {app.storage.user['usuario']}!", type='positive')
                         ui.navigate.to('/')
 
                     inp_pass.on('keydown.enter', lambda _: fazer_login())
